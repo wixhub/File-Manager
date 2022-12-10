@@ -1,0 +1,22 @@
+{
+  "name": "file-manager",
+  "version": "1.0.0",
+  "description": "File Manager using Node.js APIs",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wixhub/File-Manager.git"
+  },
+  "keywords": [
+    "Node.js"
+  ],
+  "author": "Jana Semenova",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wixhub/File-Manager/issues"
+  },
+  "homepage": "https://github.com/wixhub/File-Manager#readme"
+}
