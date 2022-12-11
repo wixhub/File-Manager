@@ -7,10 +7,10 @@ export const validateUserInput = () => {
         if (validateUserNameFlag(arr[0]) && validateStringLength(arr[1])) {
             Iparams.flag = arr[0];
             Iparams.userName = arr[1];
-            return true
+            return true;
         } 
     }
-    return false
+    return false;
 };
 
 export const validateUserNameFlag = (flag) => {
