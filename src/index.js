@@ -7,9 +7,9 @@ import { validateUserInput } from "./utils/validators.js";
 const start = () => {
 
     if (validateUserInput()) {
-        Iparams.currentPath = homedir();
+        Iparams.rootDir = Iparams.currentDir = homedir();
         console.log(`Welcome to the File Manager, ${Iparams.userName}!`);
-        console.log(`You are currently in ${Iparams.currentPath}`);
+        console.log(`You are currently in ${Iparams.rootDir}`);
     } else {
         Istd.close();
         console.log(`Use "npm run start -- --username=Your_UserName" to start the program!`);
@@ -24,7 +24,7 @@ const flow = async () => {
 
         Istd.on("line", async (input) => {
             await parseCommandsInput(input);
-            console.log(`You are currently in ${Iparams.currentPath}`);
+            console.log(`You are currently in ${Iparams.currentDir}`);
         });
         
         process.on("exit", (code) => {

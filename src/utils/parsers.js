@@ -1,4 +1,5 @@
 import { Icommands } from "./interfaces.js";
+import { goUpper } from "./nwd.js";
 
 export const parseLoginInput = () => {
     const arr = process.argv.slice(2)[0].split("=");
@@ -6,11 +7,14 @@ export const parseLoginInput = () => {
 };
 
 export async function parseCommandsInput(input) {
-    switch (input.split(" ")[0]) {
+    const arr = input.split(" ")
+    switch (arr[0]) {
         case Icommands.exit:
             process.exit();
+        case Icommands.up:
+            goUpper();
+            break;
         default:
             console.log(`Invalid input: ${input}`);
-            console.log("Use command .exit");
     }
 }

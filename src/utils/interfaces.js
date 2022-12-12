@@ -1,13 +1,15 @@
 import { createInterface } from "readline";
 
 export const Iparams = {
-    currentPath: '',
+    currentDir: '',
     flag: '',
+    rootDir: '',
     userName: '',
 };
 
 export const Icommands = {
     exit: '.exit',
+    up: 'up',
 };
 
 export const Istd = createInterface({
