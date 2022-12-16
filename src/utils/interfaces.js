@@ -8,6 +8,7 @@ export const Iparams = {
 };
 
 export const Icommands = {
+    cd: 'cd',
     exit: '.exit',
     up: 'up',
 };

@@ -23,8 +23,9 @@ const flow = async () => {
     if (!!Iparams.userName) {
 
         Istd.on("line", async (input) => {
-            await parseCommandsInput(input);
-            console.log(`You are currently in ${Iparams.currentDir}`);
+            await parseCommandsInput(input).then(() => 
+                console.log(`You are currently in ${Iparams.currentDir}`)
+            )
         });
         
         process.on("exit", (code) => {

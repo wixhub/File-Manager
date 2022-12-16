@@ -1,5 +1,5 @@
 import { Icommands } from "./interfaces.js";
-import { goUpper } from "./nwd.js";
+import { goToDirectory, goUpper } from "./nwd.js";
 
 export const parseLoginInput = () => {
     const arr = process.argv.slice(2)[0].split("=");
@@ -9,6 +9,9 @@ export const parseLoginInput = () => {
 export async function parseCommandsInput(input) {
     const arr = input.split(" ")
     switch (arr[0]) {
+        case Icommands.cd:
+            await goToDirectory(arr[1]);
+            break;
         case Icommands.exit:
             process.exit();
         case Icommands.up:
