@@ -10,6 +10,7 @@ export const Iparams = {
 export const Icommands = {
     cd: 'cd',
     exit: '.exit',
+    ls: 'ls',
     up: 'up',
 };
 
