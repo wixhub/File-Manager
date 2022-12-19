@@ -9,7 +9,7 @@ export const getHash = async (fileName) => {
 
     const file = path.resolve(Iparams.currentDir, fileName);
 
-    if (!fileName || !fs.promises.exist(file) || !fs.promises.stat(file).isFile()) {
+    if (!fileName || !fs.existsSync(file) || !fs.statSync(file).isFile()) {
         return console.log("Invalid input");
     }
 

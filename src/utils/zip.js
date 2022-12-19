@@ -12,11 +12,11 @@ export const compressFile = async (
 
     const file = path.resolve(Iparams.currentDir, fileName);
 
-    if (!fileName ||  !fs.promises.exist(file) || !fs.promises.stat(file).isFile()) {
+    if (!fileName ||  !fs.existsSync(file) || !fs.statSync(file).isFile()) {
         return console.log("Invalid input");
     }
     
-    if (!destination || !fs.promises.exist(destination) || !fs.promises.stat(destination).isDirectory()) {
+    if (!destination || !fs.existsSync(destination) || !fs.statSync(destination).isDirectory()) {
         return console.log("Invalid input");
     }
 
@@ -63,11 +63,11 @@ export const decompressFile = async (
 
     const file = path.resolve(Iparams.currentDir, fileName);
 
-    if (!fileName ||  !fs.promises.exist(file) || !fs.promises.stat(file).isFile()) {
+    if (!fileName ||  !fs.existsSync(file) || !fs.statSync(file).isFile()) {
         return console.log("Invalid input");
     }
     
-    if (!destination || !fs.promises.exist(destination) || !fs.promises.stat(destination).isDirectory()) {
+    if (!destination || !fs.existsSync(destination) || !fs.statSync(destination).isDirectory()) {
         return console.log("Invalid input");
     }
 

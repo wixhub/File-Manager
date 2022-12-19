@@ -12,7 +12,7 @@ export const catFile = async (fileName) => {
     console.log("Operation failed");
   }
 
-  if (!fileName || !fs.promises.exist(fileName) || !fs.promises.stat(fileName).isFile()) {
+  if (!fileName || !fs.existsSync(fileName) || !fs.statSync(fileName).isFile()) {
     return console.log("Invalid input");
   }
 
@@ -49,7 +49,7 @@ export const addFile = async (fileName) => {
     console.log("Operation failed");
   }
 
-  if (!fileName || fs.promises.exist(fileName)) {
+  if (!fileName || fs.existsSync(fileName)) {
     return console.log("Invalid input");
   }
 
@@ -64,14 +64,14 @@ export const renameFile = async (oldFileName, newFileName) => {
 
   const oldFile = path.resolve(Iparams.currentDir, oldFileName);
 
-  if (!oldFileName ||  !fs.promises.exist(oldFile) || !fs.promises.stat(oldFile).isFile()) {
+  if (!oldFileName ||  !fs.existsSync(oldFile) || !fs.statSync(oldFile).isFile()) {
     return console.log("Invalid input");
   }
 
   const newPath = path.dirname(oldFile);
   const newFile = path.resolve(newPath, newFileName);
 
-  if (fs.promises.exist(newFile)) {
+  if (fs.existsSync(newFile)) {
     return console.log("Invalid input");
   }
 
@@ -86,11 +86,11 @@ export const copyFile = async (fileName, destination) => {
 
   const file = path.resolve(Iparams.currentDir, fileName);
 
-  if (!fileName ||  !fs.promises.exist(file) || !fs.promises.stat(file).isFile()) {
+  if (!fileName ||  !fs.existsSync(file) || !fs.statSync(file).isFile()) {
     return console.log("Invalid input");
   }
 
-  if (!destination || !fs.promises.exist(destination) || !fs.promises.stat(destination).isDirectory()) {
+  if (!destination || !fs.existsSync(destination) || !fs.statSync(destination).isDirectory()) {
     return console.log("Invalid input");
   }
 
@@ -127,11 +127,11 @@ export const moveFile = async (fileName, destination) => {
 
   const file = path.resolve(Iparams.currentDir, fileName);
 
-  if (!fileName ||  !fs.promises.exist(file) || !fs.promises.stat(file).isFile()) {
+  if (!fileName ||  !fs.existsSync(file) || !fs.statSync(file).isFile()) {
     return console.log("Invalid input");
   }
 
-  if (!destination || !fs.promises.exist(destination) || !fs.promises.stat(destination).isDirectory()) {
+  if (!destination || !fs.existsSync(destination) || !fs.statSync(destination).isDirectory()) {
     return console.log("Invalid input");
   }
 
