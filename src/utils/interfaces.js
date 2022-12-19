@@ -8,9 +8,15 @@ export const Iparams = {
 };
 
 export const Icommands = {
+    add: 'add',
+    cat: 'cat',
     cd: 'cd',
+    cp: 'cp',
     exit: '.exit',
     ls: 'ls',
+    mv: 'mv',
+    rm: 'rm',
+    rn: 'rn',
     up: 'up',
 };
 

@@ -28,9 +28,8 @@ const flow = async () => {
             )
         });
         
-        process.on("exit", (code) => {
+        process.on("exit", () => {
             Istd.close();
-            console.log(`Exit with code: ${code}`);
             console.log(`Thank you for using File Manager, ${Iparams.userName}, goodbye!`);
         });
     }

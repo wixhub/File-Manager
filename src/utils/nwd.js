@@ -30,16 +30,16 @@ export const goToDirectory = async (destination) => {
         try {
             destination = path.resolve(Iparams.currentDir, destination);
             await fs.promises.access(destination);
-            if (fs.statSync(filePath).isDirectory()) {
+            if (fs.statSync(destination).isDirectory()) {
                 Iparams.currentDir = destination;
                 return;
             }
         } catch (error) {}
     }
-    console.log("No such directory");
+    console.log("Invalid input");
 };
 
-export const list = async () => {
+export const printList = async () => {
     try 
     {
         const alls = await fs.promises.readdir(Iparams.currentDir, { withFileTypes: true });
@@ -58,6 +58,6 @@ export const list = async () => {
         }));
     }
     catch (error) {
-        throw new Error("FS operation failed");
+        throw new Error("Operation failed");
     }
 };
