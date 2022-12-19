@@ -15,6 +15,7 @@ export const Icommands = {
     exit: '.exit',
     ls: 'ls',
     mv: 'mv',
+    os: 'os',
     rm: 'rm',
     rn: 'rn',
     up: 'up',

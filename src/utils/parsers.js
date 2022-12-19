@@ -1,4 +1,5 @@
 import { Icommands } from "./interfaces.js";
+import { readArg } from "./osInfo.js";
 import { goToDirectory, goUpper, printList } from "./nwd.js";
 import { addFile, catFile, copyFile, moveFile, renameFile, removeFile } from './fileOps.js';
 
@@ -29,6 +30,9 @@ export async function parseCommandsInput(input) {
             break;
         case Icommands.mv:
             await moveFile(arr[1], arr[2]);
+            break;
+        case Icommands.os:
+            readArg(arr[1].slice(2));
             break;
         case Icommands.rm:
             await removeFile(arr[1]);
