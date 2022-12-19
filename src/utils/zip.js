@@ -23,25 +23,31 @@ export const compressFile = async (
     return new Promise((resolve) => {
         try {
             const fileName = `${path.basename(file)}.br`;
-            const reader = fs.createReadStream(file);
-            const writer = fs.createWriteStream(path.resolve(destination, fileName));
-            const brotli = zlib.createBrotliCompress();
-            reader.pipe(brotli).pipe(writer);
-            reader.on('error', () => {
+            const readStream = fs.createReadStream(file);
+            const writeStream = fs.createWriteStream(path.resolve(destination, fileName));
+            const brotliCompress = zlib.createBrotliCompress();
+
+            readStream.pipe(brotliCompress).pipe(writeStream);
+
+            readStream.on('error', () => {
                 console.log("Operation failed");
                 resolve();
             });
-            reader.on('end', () => {
+
+            readStream.on('end', () => {
                 resolve();
             });
-            writer.on('error', () => {
+
+            writeStream.on('error', () => {
                 console.log("Operation failed");
                 resolve();
             });
-            brotli.on('error', () => {
+
+            brotliCompress.on('error', () => {
                 console.log("Operation failed");
                 resolve();
             });
+            
         } catch (error) {
             console.log("Operation failed");
             resolve();
@@ -68,25 +74,31 @@ export const decompressFile = async (
     return new Promise((resolve) => {
         try {
             const fileName = path.basename(file).split('.br')[0];
-            const reader = fs.createReadStream(file);
-            const writer = fs.createWriteStream(path.resolve(destination, fileName));
-            const brotli = zlib.createBrotliDecompress();
-            reader.pipe(brotli).pipe(writer);
-            reader.on('error', () => {
+            const readStream = fs.createReadStream(file);
+            const writeStream = fs.createWriteStream(path.resolve(destination, fileName));
+            const brotliDecompress = zlib.createBrotliDecompress();
+
+            readStream.pipe(brotliDecompress).pipe(writeStream);
+
+            readStream.on('error', () => {
                 console.log("Operation failed");
                 resolve();
             });
-            writer.on('error', () => {
+
+            writeStream.on('error', () => {
                 console.log("Operation failed");
                 resolve();
             });
-            reader.on('end', () => {
+
+            readStream.on('end', () => {
                 resolve();
             });
-            brotli.on('error', () => {
+
+            brotliDecompress.on('error', () => {
                 console.log("Operation failed");
                 resolve();
             });
+
         } catch (error) {
             console.log("Operation failed");
             resolve();

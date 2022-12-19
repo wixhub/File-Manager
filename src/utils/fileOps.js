@@ -19,17 +19,21 @@ export const catFile = async (fileName) => {
   return new Promise((resolve) => {
       try {
         const stream = fs.createReadStream(fileName, { encoding: 'utf8' });
+
         stream.on('data', (data) => {
           console.log(data);
           resolve();
         });
+
         stream.on('error', () => {
           console.log("Operation failed");
           resolve();
         });
+
         stream.on('end', () => {
           resolve();
         });
+        
       } catch (error) {
         console.log("Operation failed");
         resolve();
@@ -99,10 +103,13 @@ export const copyFile = async (fileName, destination) => {
   try {
     const readStream = fs.createReadStream(file).setEncoding('utf8');
     const writeStream = fs.createWriteStream(path.resolve(destination, path.basename(file)));
+
     readStream.on('data', (data) => {
       writeStream.write(data);
     });
+
     return true;
+
   } catch (error) {
     console.log("Operation failed");
   }

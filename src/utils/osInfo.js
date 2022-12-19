@@ -30,9 +30,12 @@ export const readArg = (arg) => {
 const getCpus = () => {
   console.log("*** Host machine CPUs info");
   console.log(`** Overall amount of CPUS: ${os.cpus().length}`);
+  
   const details = [];
+
   os.cpus().forEach((cpu) => {
     details.push({ 'Model and clock rate (in GHz)': cpu.model });
   });
+
   console.table(details);
 };

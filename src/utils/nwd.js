@@ -27,6 +27,7 @@ export const goToDirectory = async (destination) => {
             console.log("You can't go upper than root directory");
             return;
         }
+        
         try {
             destination = path.resolve(Iparams.currentDir, destination);
             await fs.promises.access(destination);
@@ -44,6 +45,7 @@ export const printList = async () => {
     {
         const alls = await fs.promises.readdir(Iparams.currentDir, { withFileTypes: true });
         let arr = [];
+
         for (let el of alls) {
             let type = 'File';
             const ar = path.join(Iparams.currentDir, el.name);
@@ -53,6 +55,7 @@ export const printList = async () => {
 
             arr.push({ Name: el.name, Type: type });
         }
+
         console.table(arr.sort(function(a, b) {
             return a.Name.localeCompare(b.Name) && a.Type.localeCompare(b.Type);
         }));
