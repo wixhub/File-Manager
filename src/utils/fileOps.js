@@ -8,11 +8,11 @@ export const catFile = async (fileName) => {
 
   try {
     fileName = path.resolve(Iparams.currentDir, fileName);
-  } catch (e) {
+  } catch (error) {
     console.log("Operation failed");
   }
 
-  if (!fileName || !fs.existsSync(fileName) || !fs.statSync(fileName).isFile()) {
+  if (!fileName || !fs.promises.exist(fileName) || !fs.promises.stat(fileName).isFile()) {
     return console.log("Invalid input");
   }
 
@@ -30,7 +30,7 @@ export const catFile = async (fileName) => {
         stream.on('end', () => {
           resolve();
         });
-      } catch (e) {
+      } catch (error) {
         console.log("Operation failed");
         resolve();
       }
@@ -45,7 +45,7 @@ export const addFile = async (fileName) => {
     console.log("Operation failed");
   }
 
-  if (!fileName || fs.existsSync(fileName)) {
+  if (!fileName || fs.promises.exist(fileName)) {
     return console.log("Invalid input");
   }
 
@@ -60,14 +60,14 @@ export const renameFile = async (oldFileName, newFileName) => {
 
   const oldFile = path.resolve(Iparams.currentDir, oldFileName);
 
-  if (!oldFileName ||  !fs.existsSync(oldFile) || !fs.statSync(oldFile).isFile()) {
+  if (!oldFileName ||  !fs.promises.exist(oldFile) || !fs.promises.stat(oldFile).isFile()) {
     return console.log("Invalid input");
   }
 
   const newPath = path.dirname(oldFile);
   const newFile = path.resolve(newPath, newFileName);
 
-  if (fs.existsSync(newFile)) {
+  if (fs.promises.exist(newFile)) {
     return console.log("Invalid input");
   }
 
@@ -82,11 +82,11 @@ export const copyFile = async (fileName, destination) => {
 
   const file = path.resolve(Iparams.currentDir, fileName);
 
-  if (!fileName ||  !fs.existsSync(file) || !fs.statSync(file).isFile()) {
+  if (!fileName ||  !fs.promises.exist(file) || !fs.promises.stat(file).isFile()) {
     return console.log("Invalid input");
   }
 
-  if (!destination || !fs.existsSync(destination) || !fs.statSync(destination).isDirectory()) {
+  if (!destination || !fs.promises.exist(destination) || !fs.promises.stat(destination).isDirectory()) {
     return console.log("Invalid input");
   }
 
@@ -120,11 +120,11 @@ export const moveFile = async (fileName, destination) => {
 
   const file = path.resolve(Iparams.currentDir, fileName);
 
-  if (!fileName ||  !fs.existsSync(file) || !fs.statSync(file).isFile()) {
+  if (!fileName ||  !fs.promises.exist(file) || !fs.promises.stat(file).isFile()) {
     return console.log("Invalid input");
   }
 
-  if (!destination || !fs.existsSync(destination) || !fs.statSync(destination).isDirectory()) {
+  if (!destination || !fs.promises.exist(destination) || !fs.promises.stat(destination).isDirectory()) {
     return console.log("Invalid input");
   }
 

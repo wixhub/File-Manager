@@ -9,7 +9,7 @@ export const getHash = async (fileName) => {
 
     const file = path.resolve(Iparams.currentDir, fileName);
 
-    if (!fileName || !fs.existsSync(file) || !fs.statSync(file).isFile()) {
+    if (!fileName || !fs.promises.exist(file) || !fs.promises.stat(file).isFile()) {
         return console.log("Invalid input");
     }
 
@@ -29,7 +29,7 @@ export const getHash = async (fileName) => {
             stream.on('end', () => {
                 resolve();
             });
-        } catch (e) {
+        } catch (error) {
             console.log("Operation failed");
             resolve();
         }

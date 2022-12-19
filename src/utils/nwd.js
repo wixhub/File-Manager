@@ -30,7 +30,7 @@ export const goToDirectory = async (destination) => {
         try {
             destination = path.resolve(Iparams.currentDir, destination);
             await fs.promises.access(destination);
-            if (fs.statSync(destination).isDirectory()) {
+            if (fs.promises.stat(destination).isDirectory()) {
                 Iparams.currentDir = destination;
                 return;
             }
@@ -48,7 +48,7 @@ export const printList = async () => {
             let type = 'File';
             const ar = path.join(Iparams.currentDir, el.name);
         
-            if (fs.statSync(ar).isDirectory())
+            if (fs.promises.stat(ar).isDirectory())
             { type = 'Directory'; }
 
             arr.push({ Name: el.name, Type: type });
