@@ -1,4 +1,5 @@
 import { Icommands } from "./interfaces.js";
+import { getHash } from './hash.js';
 import { readArg } from "./osInfo.js";
 import { goToDirectory, goUpper, printList } from "./nwd.js";
 import { addFile, catFile, copyFile, moveFile, renameFile, removeFile } from './fileOps.js';
@@ -22,6 +23,9 @@ export async function parseCommandsInput(input) {
             break;
         case Icommands.cp:
             await copyFile(arr[1], arr[2]);
+            break;
+        case Icommands.hash:
+            await getHash(arr[1]);
             break;
         case Icommands.exit:
             process.exit();

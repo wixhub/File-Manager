@@ -17,8 +17,8 @@ export const catFile = async (fileName) => {
           console.log(data);
           resolve();
         });
-        stream.on('error', (err) => {
-          console.log(err);
+        stream.on('error', () => {
+          console.log("Operation failed");
           resolve();
         });
         stream.on('end', () => {

@@ -12,6 +12,7 @@ export const Icommands = {
     cat: 'cat',
     cd: 'cd',
     cp: 'cp',
+    hash: 'hash',
     exit: '.exit',
     ls: 'ls',
     mv: 'mv',
