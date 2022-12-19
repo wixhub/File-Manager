@@ -1,7 +1,7 @@
-import { Icommands } from "./interfaces.js";
 import { getHash } from './hash.js';
-import { readArg } from "./osInfo.js";
-import { goToDirectory, goUpper, printList } from "./nwd.js";
+import { readArg } from './osInfo.js';
+import { goToDirectory, goUpper, printList } from './nwd.js';
+import { compressFile, decompressFile } from './zip.js';
 import { addFile, catFile, copyFile, moveFile, renameFile, removeFile } from './fileOps.js';
 
 export const parseLoginInput = () => {
@@ -12,39 +12,45 @@ export const parseLoginInput = () => {
 export async function parseCommandsInput(input) {
     const arr = input.split(" ")
     switch (arr[0]) {
-        case Icommands.add:
+        case 'add':
             await addFile(arr[1]);
             break;
-        case Icommands.cat:
+        case 'cat':
             await catFile(arr[1]);
             break;
-        case Icommands.cd:
+        case 'cd':
             await goToDirectory(arr[1]);
             break;
-        case Icommands.cp:
+        case 'compress':
+            await compressFile(arr[1], arr[2]);
+            break;
+        case 'cp':
             await copyFile(arr[1], arr[2]);
             break;
-        case Icommands.hash:
+        case 'decompress':
+            await decompressFile(arr[1], arr[2]);
+            break;
+        case 'hash':
             await getHash(arr[1]);
             break;
-        case Icommands.exit:
+        case '.exit':
             process.exit();
-        case Icommands.ls:
+        case 'ls':
             await printList();
             break;
-        case Icommands.mv:
+        case 'mv':
             await moveFile(arr[1], arr[2]);
             break;
-        case Icommands.os:
+        case 'os':
             readArg(arr[1].slice(2));
             break;
-        case Icommands.rm:
+        case 'rm':
             await removeFile(arr[1]);
             break;
-        case Icommands.rn:
+        case 'rn':
             await renameFile(arr[1], arr[2]);
             break;
-        case Icommands.up:
+        case 'up':
             goUpper();
             break;
         default:

@@ -7,13 +7,14 @@ import { Iparams } from "./interfaces.js";
 
 export const getHash = async (fileName) => {
 
-    if (!fileName || !fs.existsSync(fileName) || !fs.statSync(fileName).isFile()) {
+    const file = path.resolve(Iparams.currentDir, fileName);
+
+    if (!fileName || !fs.existsSync(file) || !fs.statSync(file).isFile()) {
         return console.log("Invalid input");
     }
 
     return new Promise((resolve) => {
         try {
-            const file = path.resolve(Iparams.currentDir, fileName);
             const stream = fs.createReadStream(file);
             const hash = crypto.createHash('sha256');
             stream.on('data', (data) => {
