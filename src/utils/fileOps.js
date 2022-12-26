@@ -1,24 +1,20 @@
 import fs from 'fs';
 import path from 'path';
 import { Iparams } from "./interfaces.js";
+import { validateFile } from "./validators.js";
 
 // Working with files
 
 export const catFile = async (fileName) => {
 
-  try {
-    fileName = path.resolve(Iparams.currentDir, fileName);
-  } catch (error) {
-    console.log("Operation failed");
-  }
+  const pathToFile = validateFile(fileName);
 
-  if (!fileName || !fs.existsSync(fileName) || !fs.statSync(fileName).isFile()) {
-    return console.log("Invalid input");
+  if (!pathToFile) {
+    return;
   }
 
   return new Promise((resolve) => {
-      try {
-        const stream = fs.createReadStream(fileName, { encoding: 'utf8' });
+        const stream = fs.createReadStream(pathToFile);
 
         stream.on('data', (data) => {
           console.log(data);
@@ -33,50 +29,33 @@ export const catFile = async (fileName) => {
         stream.on('end', () => {
           resolve();
         });
-        
-      } catch (error) {
-        console.log("Operation failed");
-        resolve();
-      }
     });
 };
 
 export const addFile = async (fileName) => {
+  const pathToFile = validateFile(fileName);
 
-  try {
-    fileName = path.resolve(Iparams.currentDir, fileName);
-  } catch (error) {
-    console.log("Operation failed");
-  }
-
-  if (!fileName || fs.existsSync(fileName)) {
-    return console.log("Invalid input");
+  if (!pathToFile) {
+    return;
   }
 
   try {
-    fs.createWriteStream(fileName);
+    fs.createWriteStream(pathToFile);
   } catch (error) {
     console.log("Operation failed");
   }
 };
 
 export const renameFile = async (oldFileName, newFileName) => {
+  const pathToOldFile = validateFile(oldFileName);
+  const pathToNewFile = validateFile(newFileName);
 
-  const oldFile = path.resolve(Iparams.currentDir, oldFileName);
-
-  if (!oldFileName ||  !fs.existsSync(oldFile) || !fs.statSync(oldFile).isFile()) {
-    return console.log("Invalid input");
-  }
-
-  const newPath = path.dirname(oldFile);
-  const newFile = path.resolve(newPath, newFileName);
-
-  if (fs.existsSync(newFile)) {
-    return console.log("Invalid input");
+  if (!pathToOldFile || !pathToNewFile) {
+    return;
   }
 
   try {
-    await fs.promises.rename(oldFile, newFile);
+    await fs.promises.rename(pathToOldFile, newFile);
   } catch (error) {
     console.log("Operation failed");
   }
@@ -84,25 +63,15 @@ export const renameFile = async (oldFileName, newFileName) => {
 
 export const copyFile = async (fileName, destination) => {
 
-  const file = path.resolve(Iparams.currentDir, fileName);
+  const pathToFile = validateFile(fileName);
 
-  if (!fileName ||  !fs.existsSync(file) || !fs.statSync(file).isFile()) {
-    return console.log("Invalid input");
-  }
-
-  if (!destination || !fs.existsSync(destination) || !fs.statSync(destination).isDirectory()) {
-    return console.log("Invalid input");
-  }
-
-  try {
-    await fs.promises.access(file);
-  } catch (error) {
-    console.log("Operation failed");
+  if (!pathToFile) {
+    return;
   }
   
   try {
-    const readStream = fs.createReadStream(file).setEncoding('utf8');
-    const writeStream = fs.createWriteStream(path.resolve(destination, path.basename(file)));
+    const readStream = fs.createReadStream(pathToFile);
+    const writeStream = fs.createWriteStream(path.resolve(destination, path.basename(pathToFile)));
 
     readStream.on('data', (data) => {
       writeStream.write(data);
@@ -116,8 +85,14 @@ export const copyFile = async (fileName, destination) => {
 };
 
 export const removeFile = async (fileName) => {
+  const pathToFile = validateFile(fileName);
+
+  if (!pathToFile) {
+    return;
+  }
+
   try {
-    await fs.promises.rm(path.resolve(Iparams.currentDir, fileName), { recursive: true });
+    await fs.promises.rm(pathToFile, { recursive: true });
   } catch (error) {
     console.log("Operation failed");
   }
@@ -125,19 +100,15 @@ export const removeFile = async (fileName) => {
 
 export const moveFile = async (fileName, destination) => {
 
-  const file = path.resolve(Iparams.currentDir, fileName);
+  const pathToFile = validateFile(fileName);
 
-  if (!fileName ||  !fs.existsSync(file) || !fs.statSync(file).isFile()) {
-    return console.log("Invalid input");
+  if (!pathToFile) {
+    return;
   }
 
-  if (!destination || !fs.existsSync(destination) || !fs.statSync(destination).isDirectory()) {
-    return console.log("Invalid input");
-  }
-
-  if (await copyFile(file, destination)) {
+  if (await copyFile(pathToFile, destination)) {
     try {
-      await fs.promises.rm(file);
+      await fs.promises.rm(pathToFile);
     } catch (error) {
       console.log("Operation failed");
     }

@@ -20,3 +20,11 @@ export const validateUserNameFlag = (flag) => {
 export const validateStringLength = (str) => {
     return str.length > 0;
 };
+
+export const validateFile = (fileName) => {
+    try {
+        return path.resolve(Iparams.currentDir, fileName);
+    } catch {
+        return console.log("Invalid input");
+    }
+}
